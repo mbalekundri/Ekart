@@ -31,24 +31,24 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/shoppingCart/addProduct/{productId}")
-    public ModelAndView addProductToCart(@PathVariable("productId") Long productId) {
+    public String addProductToCart(@PathVariable("productId") Long productId) {
         productService.findById(productId).ifPresent(shoppingCartService::addProduct);
-        return shoppingCart();
+        return "redirect:/shoppingCart";
     }
 
     @GetMapping("/shoppingCart/removeProduct/{productId}")
-    public ModelAndView removeProductFromCart(@PathVariable("productId") Long productId) {
+    public String removeProductFromCart(@PathVariable("productId") Long productId) {
         productService.findById(productId).ifPresent(shoppingCartService::removeProduct);
-        return shoppingCart();
+        return "redirect:/shoppingCart";
     }
 
     @GetMapping("/shoppingCart/checkout")
-    public ModelAndView checkout() {
+    public String checkout() {
         try {
             shoppingCartService.checkout();
         } catch (NotEnoughProductsInStockException e) {
-            return shoppingCart().addObject("outOfStockMessage", e.getMessage());
+            shoppingCart().addObject("outOfStockMessage", e.getMessage());
         }
-        return shoppingCart();
+        return "redirect:/shoppingCart";
     }
 }

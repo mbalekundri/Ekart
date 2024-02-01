@@ -27,10 +27,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     final DataSource dataSource;
 
-    @Value("${spring.admin.username}")
+    @Value("${app.admin.username}")
     private String adminUsername;
 
-    @Value("${spring.admin.username}")
+    @Value("${app.admin.username}")
     private String adminPassword;
 
     @Value("${spring.queries.users-query}")
